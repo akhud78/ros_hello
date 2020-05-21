@@ -1,0 +1,10 @@
+<launch>
+  <group ns="ns1">
+    <node pkg="ros_hello" type="hello_talker" name="talker"/>
+    <node pkg="ros_hello" type="hello_listener" name="listener"/>
+  </group>
+  <group ns="ns2">
+    <node pkg="ros_hello" type="talker.py" name="talker"/>
+    <node pkg="ros_hello" type="listener.py" name="listener"/>
+  </group>
+</launch>

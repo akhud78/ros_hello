@@ -4,6 +4,7 @@ ROS HelloWorld
 - Writing a Simple Publisher and Subscriber
 - Writing a Simple Service and Client
 - Building and running tests (gtest)
+- Launching multiple ROS nodes
 
 ## Requirements
 - ROS Melodic Morenia
@@ -75,4 +76,15 @@ $ rosrun ros_hello hello_test_utils
 ...
 [==========] 1 test from 1 test case ran. (1 ms total)
 [  PASSED  ] 1 test.
+```
+### Launching multiple ROS nodes
+- [roslaunch](http://wiki.ros.org/roslaunch)
+- [Roslaunch tips for large projects](http://wiki.ros.org/roslaunch/Tutorials/Roslaunch%20tips%20for%20larger%20projects)
+- [Roslaunch, управление запуском](http://docs.voltbro.ru/starting-ros/administrirovanie-ros/roslaunch.html)
+```
+$ roslaunch ros_hello demo.launch --screen
+...
+$ rostopic list
+/ns1/chatter
+/ns2/chatter
 ```
