@@ -6,6 +6,7 @@ ROS HelloWorld
 - Building and running tests (gtest)
 - Launching multiple ROS nodes
 - Parameter Server
+- Dynamically reconfigure
 
 ## Requirements
 - ROS Melodic Morenia
@@ -126,4 +127,19 @@ $ roslaunch ros_hello demo.launch --screen py:=0 name:=Andy
 [ INFO] [1590072398.495229414]: hello Andy 1
 [ INFO] [1590072398.495879860]: I heard: [hello Andy 1]
 ^C
+```
+### Dynamically reconfigure
+- [Setting up Dynamic Reconfigure for a Node(cpp)](http://wiki.ros.org/dynamic_reconfigure/Tutorials/SettingUpDynamicReconfigureForANode%28cpp%29)
+```
+$ roslaunch ros_hello demo.launch --screen py:=0
+```
+
+- Set the configurable parameter **talker_test** in another terminal
+```
+$ rosrun dynamic_reconfigure dynparam set /ns1/talker talker_test true
+...
+[ INFO] [1590078139.911253829]: hello world 11
+[ INFO] [1590078139.911795003]: I heard: [hello world 11]
+[ INFO] [1590078140.911204146]: hello world 12 TEST
+[ INFO] [1590078140.911761942]: I heard: [hello world 12 TEST]
 ```
