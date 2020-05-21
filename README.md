@@ -7,12 +7,12 @@ ROS HelloWorld
 
 ## Requirements
 - ROS Melodic Morenia
+- [Googletest](https://github.com/google/googletest)
 
 ## Building
 ```
 $ cd ~/catkin_ws/src
 $ git clone https://github.com/akhud78/ros_hello.git
-$ git checkout develop
 $ cd ~/catkin_ws && catkin_make
 ```
 
