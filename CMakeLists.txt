@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
+  dynamic_reconfigure
 )
 
 ## System dependencies are found with CMake's conventions
@@ -98,6 +99,10 @@ generate_messages(
 #   cfg/DynReconf2.cfg
 # )
 
+generate_dynamic_reconfigure_options(
+  config/dynamic.cfg
+)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -158,6 +163,7 @@ include_directories(
 
 add_executable(hello_talker src/talker.cpp)
 target_link_libraries(hello_talker ${catkin_LIBRARIES})
+add_dependencies(hello_talker ${PROJECT_NAME}_gencfg)
 
 add_executable(hello_listener src/listener.cpp)
 target_link_libraries(hello_listener ${catkin_LIBRARIES})
