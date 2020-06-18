@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="ros_hello" type="action_server" name="action_server"/>
+  <node pkg="ros_hello" type="action_client" name="action_client"/>
+</launch>

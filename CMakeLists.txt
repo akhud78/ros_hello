@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  genmsg actionlib_msgs actionlib
   roscpp
   rospy
   std_msgs
@@ -67,16 +68,16 @@ add_service_files(
 )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+add_action_files(
+  FILES
+  DoDishes.action
+)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
   std_msgs
+  actionlib_msgs
 )
 
 ################################################
@@ -170,6 +171,12 @@ target_link_libraries(hello_listener ${catkin_LIBRARIES})
 
 add_executable(add_two_ints_server src/add_two_ints_server.cpp  src/utils.cpp )
 target_link_libraries(add_two_ints_server ${catkin_LIBRARIES})
+
+add_executable(action_client src/action_client.cpp)
+target_link_libraries(action_client ${catkin_LIBRARIES})
+
+add_executable(action_server src/action_server.cpp)
+target_link_libraries(action_server ${catkin_LIBRARIES})
 
 #############
 ## Install ##

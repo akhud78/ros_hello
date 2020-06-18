@@ -1,12 +1,16 @@
 # ros_hello
 ROS HelloWorld
 
-- Writing a Simple Publisher and Subscriber
-- Writing a Simple Service and Client
-- Building and running tests (gtest)
-- Launching multiple ROS nodes
-- Parameter Server
-- Dynamically reconfigure
+## Table of Contents
+- [Simple Publisher and Subscriber](#simple-publisher-and-subscriber)
+- [Simple Service and Client](#simple-service-and-client)
+- [Building and running gtest](#building-and-running-gtest)
+- [Launching multiple ROS nodes](#launching-multiple-ros-nodes)
+- [Parameter Server](#parameter-server)
+- [Dynamically reconfigure](#dynamically-reconfigure)
+- [Simple Action Server and Client](#simple-action-server-and-client)
+
+---
 
 ## Requirements
 - ROS Melodic Morenia
@@ -20,7 +24,8 @@ $ cd ~/catkin_ws && catkin_make
 ```
 
 ## Usage
-### C++
+### Simple Publisher and Subscriber
+#### C++
 - [Writing a Simple Publisher and Subscriber (C++)](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29)
 - Run roscore and talker node
 ```
@@ -45,6 +50,23 @@ $ rosrun ros_hello hello_listener
 [ INFO] [1589803053.553447324]: hello world 39
 [ INFO] [1589803054.053424323]: hello world 40
 ^C
+```
+#### Python
+- [Writing a Simple Publisher and Subscriber (Python)](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29)
+- Run talker.py
+```
+$ rosrun ros_hello talker.py
+[INFO] [1589808962.491005]: hello python world 1589808962.49
+[INFO] [1589808963.492489]: hello python world 1589808963.49
+```
+- Run listener python node in another terminal
+```
+$ rosrun ros_hello listener.py
+...
+^C
+```
+- Stop server in first terminal and shutdown roscore
+```
 $ fg
 roscore
 ^C[rosout-1] killing on exit
@@ -53,6 +75,8 @@ shutting down processing monitor...
 ... shutting down processing monitor complete
 done
 ```
+
+### Simple Service and Client
 - [Writing a Simple Service and Client (C++)](http://wiki.ros.org/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29)
 ```
 $ roscore &
@@ -69,23 +93,9 @@ a b
 $ rosservice call /add_two_ints 1 2
 sum: 3
 ```
-- Stop server in first terminal
-### Python
-- [Writing a Simple Publisher and Subscriber (Python)](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29)
-- Run talker.py
-```
-$ rosrun ros_hello talker.py
-[INFO] [1589808962.491005]: hello python world 1589808962.49
-[INFO] [1589808963.492489]: hello python world 1589808963.49
-```
-- Run listener python node in another terminal
-```
-$ rosrun ros_hello listener.py
-...
-^C
-```
 - Stop server in first terminal and shutdown roscore
-### Building and running tests (gtest)
+
+### Building and running gtest
 - [Building and running tests](http://wiki.ros.org/gtest)
 - Run test and shutdown roscore
 ```
@@ -94,10 +104,6 @@ $ rosrun ros_hello hello_test_utils
 ...
 [==========] 1 test from 1 test case ran. (1 ms total)
 [  PASSED  ] 1 test.
-
-$ fg
-roscore
-^C[rosout-1] killing on exit
 ```
 ### Launching multiple ROS nodes
 - [roslaunch](http://wiki.ros.org/roslaunch)
@@ -107,18 +113,29 @@ roscore
 ```
 $ roslaunch ros_hello demo.launch --screen
 ...
-^C
+[ INFO] [1592465254.021331150]: hello world 1
+[ INFO] [1592465254.022126986]: I heard: [hello world 1]
+[INFO] [1592465254.266100]: hello python world 1592465254.27
+[INFO] [1592465254.269992]: /ns2/listenerI heard hello python world 1592465254.27
+...
 $ rostopic list
 /ns1/chatter
 /ns2/chatter
 ```
 - [substitution args](http://wiki.ros.org/roslaunch/XML)
+- Run without Python nodes
 ```
 $ roslaunch ros_hello demo.launch --screen py:=false
+...
+[ INFO] [1592465402.682849741]: hello world 1
+[ INFO] [1592465402.683594511]: I heard: [hello world 1]
+[ INFO] [1592465403.682807483]: hello world 2
+[ INFO] [1592465403.683026892]: I heard: [hello world 2]
 ...
 $ rostopic list
 /ns1/chatter
 ```
+
 ### Parameter Server
 - [Parameter Server](http://wiki.ros.org/roscpp/Overview/Parameter%20Server)
 ```
@@ -126,8 +143,8 @@ $ roslaunch ros_hello demo.launch --screen py:=0 name:=Andy
 ...
 [ INFO] [1590072398.495229414]: hello Andy 1
 [ INFO] [1590072398.495879860]: I heard: [hello Andy 1]
-^C
 ```
+
 ### Dynamically reconfigure
 - [Setting up Dynamic Reconfigure for a Node(cpp)](http://wiki.ros.org/dynamic_reconfigure/Tutorials/SettingUpDynamicReconfigureForANode%28cpp%29)
 ```
@@ -142,4 +159,18 @@ $ rosrun dynamic_reconfigure dynparam set /ns1/talker talker_test true
 [ INFO] [1590078139.911795003]: I heard: [hello world 11]
 [ INFO] [1590078140.911204146]: hello world 12 TEST
 [ INFO] [1590078140.911761942]: I heard: [hello world 12 TEST]
+```
+
+### Simple Action Server and Client
+- [actionlib](http://wiki.ros.org/actionlib)
+    - Action Specification: Goal, Feedback, & Result
+- [Работа с Action](http://docs.voltbro.ru/starting-ros/messaging/rabota-s-action.html)
+```
+$ roslaunch ros_hello action.launch --screen
+...
+process[action_server-2]: started with pid [20089]
+process[action_client-3]: started with pid [20093]
+Yay! The dishes are now cleanCurrent State: SUCCEEDED
+[action_client-3] process has finished cleanly
+...
 ```
