@@ -13,7 +13,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  genmsg actionlib_msgs actionlib
+  genmsg 
+  actionlib_msgs 
+  actionlib
   roscpp
   rospy
   std_msgs
@@ -164,19 +166,24 @@ include_directories(
 
 add_executable(hello_talker src/talker.cpp)
 target_link_libraries(hello_talker ${catkin_LIBRARIES})
-add_dependencies(hello_talker ${PROJECT_NAME}_gencfg)
+add_dependencies(hello_talker ros_hello_generate_messages_cpp)
 
 add_executable(hello_listener src/listener.cpp)
 target_link_libraries(hello_listener ${catkin_LIBRARIES})
+add_dependencies(hello_listener ros_hello_generate_messages_cpp)
 
 add_executable(add_two_ints_server src/add_two_ints_server.cpp  src/utils.cpp )
 target_link_libraries(add_two_ints_server ${catkin_LIBRARIES})
+add_dependencies(add_two_ints_server ros_hello_gencpp)
 
 add_executable(action_client src/action_client.cpp)
 target_link_libraries(action_client ${catkin_LIBRARIES})
+add_dependencies(action_client ${ros_hello_EXPORTED_TARGETS})
 
 add_executable(action_server src/action_server.cpp)
 target_link_libraries(action_server ${catkin_LIBRARIES})
+add_dependencies(action_server ${ros_hello_EXPORTED_TARGETS})
+
 
 #############
 ## Install ##
